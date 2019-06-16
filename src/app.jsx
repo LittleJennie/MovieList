@@ -20,7 +20,7 @@ class App extends React.Component {
         var hasQuery = [];
         var query = new RegExp(query, 'i');
 
-        this.state.renderMovies.forEach(function(movie) {
+        this.state.movies.forEach(function(movie) {
             if (movie.title.search(query) !== -1) {
                 hasQuery.push(movie);
             }
