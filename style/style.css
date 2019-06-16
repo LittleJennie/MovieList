@@ -24,3 +24,27 @@ h1 {
     border: 0.5px solid #73AD21;
     margin: 5px;
 }
+
+.search {
+    margin: auto;
+    width: 60%;
+    padding: 30px;
+}
+
+.search-bar {
+    width: 80%;
+    height: 30px;
+}
+
+.search-submit-button {
+    font-family: 'Indie Flower', cursive;
+    width: 18%;
+    height: 33px;
+    border-radius: 10px;
+}
+
+.search-submit-button:hover {
+    cursor: pointer;
+    color: blue;
+    background-color: lightgreen;
+}
