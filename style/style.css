@@ -25,7 +25,25 @@ h1 {
     margin: 5px;
 }
 
-.search, .add-movie {
+.search-wrapper {
+    margin: 0px 130px 10px 140px;
+    width: 60%;
+    display: inline-flex;
+}
+
+#watched-list, #to-watch-list {
+    margin: auto;
+    width: 20%;
+    padding: 5px;
+}
+
+.search {
+    margin: auto;
+    width: 60%;
+    padding-left: 20px;
+}
+
+.add-movie {
     margin: auto;
     width: 60%;
     padding: 30px;
@@ -54,8 +72,9 @@ h1 {
     border-radius: 10px;
 }
 
-.search-submit-button:hover, .add-movie-button:hover {
+.search-submit-button:hover, .add-movie-button:hover,
+#watched-list:hover, #to-watch-list:hover {
     cursor: pointer;
-    color: blue;
-    background-color: lightgreen;
+    color: white;
+    background-color: rgb(2, 73, 2);
 }

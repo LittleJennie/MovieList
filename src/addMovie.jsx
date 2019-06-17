@@ -16,7 +16,11 @@ class AddMovie extends React.Component {
         return (
         <div className="add-movie">
             <form onSubmit={this.addMovieForm}>
-                <input className="add-movie-input" ref="addMovie"></input>
+                <input 
+                    className="add-movie-input" 
+                    type="text" ref="addMovie" 
+                    placeholder="Add a movie here!"
+                />
                 <button className="add-movie-button">Add Movie</button>
             </form>
         </div>

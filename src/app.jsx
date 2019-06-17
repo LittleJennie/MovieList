@@ -11,7 +11,9 @@ class App extends React.Component {
         this.state = {
             movies: [],
             renderMovies: [],
-            hasMovie: true
+            hasMovie: true, 
+            watchedMovies: [],
+            toWatchMovies: []
         }
 
         this.submitHandler = this.submitHandler.bind(this);
@@ -58,8 +60,15 @@ class App extends React.Component {
         return (
             <div className="movie_list_wrapper">
                 <AddMovie addMovieHandler={this.addMovieHandler}/>
-                <Search submitHandler={this.submitHandler}/>
-                <MovieList movies={this.state.renderMovies} hasMovie={this.state.hasMovie}/>
+                <div className="search-wrapper">
+                    <div id="watched-list">Watched</div>
+                    <div id="to-watch-list">To Watch</div>
+                    <Search submitHandler={this.submitHandler}/>
+                </div>
+                <MovieList 
+                    movies={this.state.renderMovies} 
+                    hasMovie={this.state.hasMovie}
+                />
             </div>
         )
     }

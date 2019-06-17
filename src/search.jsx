@@ -16,8 +16,13 @@ class Search extends React.Component {
         return (
         <div className="search">
             <form onSubmit={this.submitForm}>
-                <input className="search-bar" ref="search"></input>
-                <button className="search-submit-button">Submit</button>
+                <input 
+                    className="search-bar" 
+                    type="text"
+                    ref="search"
+                    placeholder="Go find a movie!"
+                />
+                <button className="search-submit-button">Go!</button>
             </form>
         </div>
         )
