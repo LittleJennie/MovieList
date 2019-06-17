@@ -19,8 +19,23 @@ h1 {
     padding: 30px;
 }
 
+.movieListEntry-wrapper {
+    display: inline-flex;
+    width: 100%;
+    align-content: center;
+}
+
+#watch-status-toggle-button {
+    font-family: 'Indie Flower', cursive;
+    height: 20px;
+    width: 20%;
+    border-radius: 10px;
+    margin-top: 2%;
+}
+
 .movieListEntry {
     text-align: center;
+    width: 80%;
     border: 0.5px solid #73AD21;
     margin: 5px;
 }
@@ -73,8 +88,10 @@ h1 {
 }
 
 .search-submit-button:hover, .add-movie-button:hover,
-#watched-list:hover, #to-watch-list:hover {
+#watched-list:hover, #to-watch-list:hover,
+#watch-status-toggle-button:hover {
     cursor: pointer;
     color: white;
     background-color: rgb(2, 73, 2);
 }
+

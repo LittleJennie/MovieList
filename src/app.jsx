@@ -21,7 +21,7 @@ class App extends React.Component {
         this.renderMovieList = this.renderMovieList.bind(this);
         this.toggleToWatchMovieList = this.toggleToWatchMovieList.bind(this);
         this.toggleWatchedMovieList = this.toggleWatchedMovieList.bind(this);
-        this.updateWatchStatus = this.updateWatchStatus.bind(this);
+        this.toggleWatchStatus = this.toggleWatchStatus.bind(this);
     }
 
     submitHandler(query) {
@@ -93,7 +93,7 @@ class App extends React.Component {
         }, this.renderMovieList);
     }
 
-    updateWatchStatus(movie) {
+    toggleWatchStatus(movie) {
         for (var i = 0; i < movieListData.length; i ++) {
             if (movieListData[i].title === movie) {
                 movieListData[i].toWatch = !movieListData[i].toWatch;
@@ -103,8 +103,7 @@ class App extends React.Component {
 
         this.setState({
             allMovies: movieListData
-        });
-        this.renderMovieList();
+        }, this.renderMovieList);
     }
 
     render() {
@@ -120,7 +119,8 @@ class App extends React.Component {
                     allMovies={this.state.allMovies}
                     searchHelp={this.state.searchHelp}
                     renderMovies={this.state.renderMovies} 
-                    hasMovie={this.hasMovie}
+                    hasMovie={this.state.hasMovie}
+                    toggleWatchStatus={this.toggleWatchStatus}
                 />
             </div>
         )
