@@ -1,19 +1,21 @@
 import React from 'react';
-import movieListData from './data/movieListData.js';
+// import movieListData from './data/movieListData.js';
 import MovieList from './movieList.jsx';
 import Search from './search.jsx';
+import AddMovie from './addMovie.jsx';
 
 class App extends React.Component {
     constructor (props) {
         super(props);
 
         this.state = {
-            movies: movieListData,
-            renderMovies: movieListData,
+            movies: [],
+            renderMovies: [],
             hasMovie: true
         }
 
         this.submitHandler = this.submitHandler.bind(this);
+        this.addMovieHandler = this.addMovieHandler.bind(this);
     }
 
     submitHandler(query) {
@@ -32,14 +34,30 @@ class App extends React.Component {
             });
         } else {
             this.setState({
+                hasMovie: true,
                 renderMovies: hasQuery
             })
         }
     }
 
+    addMovieHandler(newMovie) {
+        var curMovies = this.state.movies;
+        var newMovieObj = {
+            title: newMovie
+        };
+        curMovies.push(newMovieObj);
+
+        this.setState({
+            movies: curMovies,
+            renderMovies: curMovies
+        });
+    }
+
     render() {
+        console.log(this.state.renderMovies)
         return (
             <div className="movie_list_wrapper">
+                <AddMovie addMovieHandler={this.addMovieHandler}/>
                 <Search submitHandler={this.submitHandler}/>
                 <MovieList movies={this.state.renderMovies} hasMovie={this.state.hasMovie}/>
             </div>

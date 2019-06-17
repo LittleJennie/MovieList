@@ -25,25 +25,36 @@ h1 {
     margin: 5px;
 }
 
-.search {
+.search, .add-movie {
     margin: auto;
     width: 60%;
     padding: 30px;
 }
 
-.search-bar {
+.search-bar, .add-movie-input{
+    font-family: 'Indie Flower', cursive;
+    font-size: 14px;
     width: 80%;
     height: 30px;
+    border-top-style: none;
+    border-right-style: none;
+    border-left-style: none;
+    border-bottom-style: solid;
 }
 
-.search-submit-button {
+.search-bar:focus, .add-movie-input:focus {
+    outline: none;
+    color: green;
+}
+
+.search-submit-button, .add-movie-button{
     font-family: 'Indie Flower', cursive;
     width: 18%;
     height: 33px;
     border-radius: 10px;
 }
 
-.search-submit-button:hover {
+.search-submit-button:hover, .add-movie-button:hover {
     cursor: pointer;
     color: blue;
     background-color: lightgreen;

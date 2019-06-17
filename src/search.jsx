@@ -8,8 +8,8 @@ class Search extends React.Component {
 
     submitForm(e) {
         e.preventDefault();
-        console.log(this.refs.search.value)
-        this.props.submitHandler(this.refs.search.value)
+        this.props.submitHandler(this.refs.search.value);
+        e.target.reset();
     }
 
     render() {
@@ -23,21 +23,5 @@ class Search extends React.Component {
         )
     }
 }
-
-// var Search = (props) => (
-//     <div className="search">
-//         <form onSubmit={
-//             (e) => {
-//                 e.preventDefault();
-//                 console.log(this)
-//                 return props.submitHandler(e.target.value)
-//             }}
-//         >
-//             <input className="search-bar"></input>
-//             <button className="search-submit-button">Submit</button>
-//         </form>
-//     </div>
-// );
-// do onsubmit handler here
 
 export default Search;

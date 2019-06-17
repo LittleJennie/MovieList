@@ -1,19 +1,5 @@
 import React from 'react';
-import MovieListEntry from './movieListEntry.jsx'
-
-// var MovieList = (props) => (
-//     <div className='movieList'>
-//         {
-//             if (props.hasMovie === false) {
-
-//             } else {
-//                 props.movies.map((movie) => (
-//                     <MovieListEntry key={movie.title} movie={movie} />
-//                 ))
-//             }
-//         }
-//     </div>
-// );
+import MovieListEntry from './movieListEntry.jsx';
 
 class MovieList extends React.Component {
     constructor(props) {
