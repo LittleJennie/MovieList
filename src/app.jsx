@@ -16,7 +16,7 @@ class App extends React.Component {
             searchHelp: 'Sorry, this movie is not on any of your movie list yet :('
         }
 
-        this.submitHandler = this.submitHandler.bind(this);
+        this.onChangeHandler = this.onChangeHandler.bind(this);
         this.addMovieHandler = this.addMovieHandler.bind(this);
         this.renderMovieList = this.renderMovieList.bind(this);
         this.toggleToWatchMovieList = this.toggleToWatchMovieList.bind(this);
@@ -24,29 +24,27 @@ class App extends React.Component {
         this.toggleWatchStatus = this.toggleWatchStatus.bind(this);
     }
 
-    submitHandler(query) {
+    onChangeHandler(query) {
+        console.log('onChange fire, this is query: ', query)
         var hasQuery = [];
         var query = new RegExp(query, 'i');
         var foundMovie = true;
         var searchHelpMsg = this.state.searchHelp;
+        var curView = this.state.viewOnToWatch;
 
-        this.state.renderMovies.forEach(function(movie) {
-            if (movie.title.search(query) !== -1) {
+        this.state.allMovies.forEach(function(movie) {
+            if (movie.title.search(query) !== -1 && movie.toWatch === curView) {
                 hasQuery.push(movie);
+            } else if (movie.title.search(query) !== -1) {
+                searchHelpMsg = 'Looks like this movie is on another list!';
             }
         });
 
         if (hasQuery.length === 0) {
-            this.state.allMovies.forEach(function(movie) {
-                if (movie.title.search(query) !== -1) {
-                    hasQuery.push(movie);
-                }
-            });
-            if (hasQuery.length !== 0) {
-                searchHelpMsg = 'Looks like this movie is on another list!';
-            }
-            var foundMovie = false;
+            foundMovie = false;
         }
+
+        console.log('onChange fire, this is hasQuery Arr: ', hasQuery)
         this.setState({
             hasMovie: foundMovie,
             renderMovies: hasQuery,
@@ -70,6 +68,7 @@ class App extends React.Component {
     renderMovieList() {
         var toRender = [];
         var curView = this.state.viewOnToWatch;
+        console.log('allMovies when calling renderMovieList: ', this.state.allMovies)
         console.log('curView when calling renderMovieList: ', curView)
         this.state.allMovies.forEach(function(movie) {
             if (movie.toWatch === curView) {
@@ -113,7 +112,7 @@ class App extends React.Component {
                 <div className="search-wrapper">
                     <div id="to-watch-list" onClick={this.toggleToWatchMovieList}>To Watch</div>
                     <div id="watched-list" onClick={this.toggleWatchedMovieList}>Watched</div>
-                    <Search submitHandler={this.submitHandler}/>
+                    <Search onChangeHandler={this.onChangeHandler}/>
                 </div>
                 <MovieList 
                     allMovies={this.state.allMovies}

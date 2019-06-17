@@ -3,19 +3,17 @@ import React from 'react';
 class Search extends React.Component {
     constructor(props) {
         super(props);
-        this.submitForm = this.submitForm.bind(this);
+        this.changeForm = this.changeForm.bind(this);
     }
 
-    submitForm(e) {
-        e.preventDefault();
-        this.props.submitHandler(this.refs.search.value);
-        e.target.reset();
+    changeForm() {
+        this.props.onChangeHandler(this.refs.search.value);
     }
 
     render() {
         return (
         <div className="search">
-            <form onSubmit={this.submitForm}>
+            <form onChange={this.changeForm}>
                 <input 
                     className="search-bar" 
                     type="text"
