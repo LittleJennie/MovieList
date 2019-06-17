@@ -6,11 +6,12 @@ class MovieList extends React.Component {
         super(props)
     }
 
+
     renderMovies() {
         if (this.props.hasMovie === false) {
             return 'has no movie'
         } else {
-            var movieEntries = this.props.movies.map((movie) => (
+            var movieEntries = this.props.renderMovies.map((movie) => (
                 <MovieListEntry key={movie.title} movie={movie} />
             ));
             return movieEntries;
