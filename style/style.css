@@ -12,6 +12,15 @@ h1 {
     text-align: center;
 }
 
+#movie-list-wrapper {
+    width: 100%;
+    display: inline-flex;
+}
+
+#add-movies-list, #render-movie-list {
+    width: 50%
+}
+
 .movieList {
     margin: auto;
     width: 60%;

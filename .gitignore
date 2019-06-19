@@ -1,1 +1,4 @@
 node_modules
+
+## API keys ##
+src/config/tmdb.js

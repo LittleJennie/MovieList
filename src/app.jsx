@@ -107,20 +107,24 @@ class App extends React.Component {
 
     render() {
         return (
-            <div className="movie_list_wrapper">
-                <AddMovie addMovieHandler={this.addMovieHandler}/>
-                <div className="search-wrapper">
-                    <div id="to-watch-list" onClick={this.toggleToWatchMovieList}>To Watch</div>
-                    <div id="watched-list" onClick={this.toggleWatchedMovieList}>Watched</div>
-                    <Search onChangeHandler={this.onChangeHandler}/>
+            <div id="movie-list-wrapper">
+                <div id="add-movies-list">
+                    <AddMovie addMovieHandler={this.addMovieHandler}/>
                 </div>
-                <MovieList 
-                    allMovies={this.state.allMovies}
-                    searchHelp={this.state.searchHelp}
-                    renderMovies={this.state.renderMovies} 
-                    hasMovie={this.state.hasMovie}
-                    toggleWatchStatus={this.toggleWatchStatus}
-                />
+                <div id="render-movie-list">
+                    <div className="search-wrapper">
+                        <div id="to-watch-list" onClick={this.toggleToWatchMovieList}>To Watch</div>
+                        <div id="watched-list" onClick={this.toggleWatchedMovieList}>Watched</div>
+                        <Search onChangeHandler={this.onChangeHandler}/>
+                    </div>
+                    <MovieList 
+                        allMovies={this.state.allMovies}
+                        searchHelp={this.state.searchHelp}
+                        renderMovies={this.state.renderMovies} 
+                        hasMovie={this.state.hasMovie}
+                        toggleWatchStatus={this.toggleWatchStatus}
+                    />
+                </div>
             </div>
         )
     }
