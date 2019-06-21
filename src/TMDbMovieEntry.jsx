@@ -4,7 +4,7 @@ class TMDbMovieEntry extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            inListStatus: false, // to be fixed
+            inListStatus: this.props.inList,
             renderDetail: false
         }
 
@@ -12,6 +12,7 @@ class TMDbMovieEntry extends React.Component {
         this.renderTitleDetail = this.renderTitleDetail.bind(this);
         this.addMovieToggleButton = this.addMovieToggleButton.bind(this);
         this.renderAddMovieButton = this.renderAddMovieButton.bind(this);
+        this.toggleButtonStatus = this.toggleButtonStatus.bind(this);
     }
 
     showDetail() {
@@ -39,14 +40,22 @@ class TMDbMovieEntry extends React.Component {
     }
 
     addMovieToggleButton(movie) {
+        console.log(this.state.inListStatus)
         this.props.addMovieHandler(movie);
         this.setState({
             inListStatus: !this.state.inListStatus
-        }, () => this.renderAddMovieButton())
+        }, () => {
+            this.renderAddMovieButton();
+            this.toggleButtonStatus();
+        })
     }
 
     renderAddMovieButton() {
         return this.state.inListStatus ? 'In List' : 'Add to List';
+    }
+
+    toggleButtonStatus() {
+        return this.state.inListStatus ? true : false;
     }
     
 
@@ -56,7 +65,7 @@ class TMDbMovieEntry extends React.Component {
                 <div className="TMDbMovieEntry-wrapper">
                     <button 
                         id="add-movie-toggle-button" 
-                        disabled={this.state.inListStatus}
+                        disabled={this.toggleButtonStatus()}
                         onClick={() => this.addMovieToggleButton(this.props.movie)}
                     >
                         {this.renderAddMovieButton()}

@@ -11,7 +11,7 @@ class App extends React.Component {
         this.state = {
             allMovies: movieListData, // movie format: {title: 'Mean Girls', toWatch: true}
             hasMovie: true,
-            renderMovies: movieListData,
+            renderMovies: Object.values(movieListData),
             viewOnToWatch: true, 
             searchHelp: 'Sorry, this movie is not on any of your movie list yet :('
         }
@@ -55,26 +55,33 @@ class App extends React.Component {
     addMovieHandler(newMovie) {
         // need to add movie to a storage file
         var newMovieObj = {
-            title: newMovie,
+            id: newMovie.id,
+            title: newMovie.title,
+            releaseDate: newMovie.release_date,
+            vote: newMovie.vote_average,
+            overview: newMovie.overview,
+            img: newMovie.poster_path,
             toWatch: true
         };
-        movieListData.push(newMovieObj);
+        movieListData[newMovie.id] = newMovieObj;
 
         this.setState({
             allMovies: movieListData,
-        });
+        }, this.renderMovieList());
     }
 
     renderMovieList() {
         var toRender = [];
         var curView = this.state.viewOnToWatch;
-        console.log('allMovies when calling renderMovieList: ', this.state.allMovies)
-        console.log('curView when calling renderMovieList: ', curView)
-        this.state.allMovies.forEach(function(movie) {
-            if (movie.toWatch === curView) {
-                toRender.push(movie);
+        console.log('allMovies when calling renderMovieList: ', this.state.allMovies);
+        console.log('curView when calling renderMovieList: ', curView);
+
+        for (var prop in this.state.allMovies) {
+            if (this.state.allMovies[prop].toWatch === curView) {
+                toRender.push(this.state.allMovies[prop]);
             }
-        });
+        }
+
         this.setState({
             renderMovies: toRender
         });
@@ -113,6 +120,7 @@ class App extends React.Component {
                         addMovieHandler={this.addMovieHandler}
                         API_KEY={this.props.TMDB_API_KEY}
                         searchTMDb={this.props.searchTMDb}
+                        allMovies={this.state.allMovies}
                     />
                 </div>
                 <div id="render-movie-list">

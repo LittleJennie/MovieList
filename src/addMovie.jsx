@@ -31,15 +31,14 @@ class AddMovie extends React.Component {
     }
 
     renderTMDbResults(TMDbmovies) {
-        console.log(TMDbmovies)
         return (
             TMDbmovies.map( (movie) => {
-                console.log(movie)
                 return (
                     <TMDbMovieEntry 
                         key={movie.id}
                         addMovieHandler={this.props.addMovieHandler}
                         movie={movie}
+                        inList={false}
                     />
                 )
             })
