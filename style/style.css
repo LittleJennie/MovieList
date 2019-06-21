@@ -1,10 +1,10 @@
 @import url("https://fonts.googleapis.com/css?family=Indie+Flower&display=swap");
+@import url('https://fonts.googleapis.com/css?family=Shadows+Into+Light&display=swap');
 
 body {
     font-family: 'Indie Flower', cursive;
     font-size: 20px;
     flex-wrap: wrap;
-
 }
 
 h1 {
@@ -18,7 +18,8 @@ h1 {
 }
 
 #add-movies-list, #render-movie-list {
-    width: 50%
+    width: 50%;
+    display: inline-block;
 }
 
 .movieList {
@@ -69,7 +70,7 @@ h1 {
 
 .add-movie {
     margin: auto;
-    width: 60%;
+    width: 100%;
     padding: 30px;
 }
 
@@ -104,3 +105,48 @@ h1 {
     background-color: rgb(2, 73, 2);
 }
 
+.hidden { display:none; }
+
+.TMDbMovieEntry-title:hover {
+    cursor: pointer;
+    color: white;
+    background-color: rgb(2, 73, 2);
+}
+
+.TMDbMovieEntry-wrapper {
+    width: 100%;
+    display: inline-flex;
+}
+
+#add-movie-toggle-button {
+    width: 20%;
+}
+
+.TMDbMovieEntry-title {
+    width: 80%;
+    margin: 5px;
+}
+
+.TMDbMovieEntry-detail {
+    background-color: rgb(145, 238, 255);
+    padding: 5px;
+    font-size: 12px;
+    font-weight: 300px;
+    display: inline-flex;
+    width: 100%;
+}
+
+.TMDbMovieEntry-text-wrap {
+    width: 75%;
+}
+
+.TMDbMovieEntry-text {
+    font-family: 'Shadows Into Light', cursive;
+    font-weight: normal;
+}
+
+.TMDbMovieEntry-img {
+    width: 20%;
+    height: 100px;
+    object-fit: scale-down;
+}

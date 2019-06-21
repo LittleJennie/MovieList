@@ -1,28 +1,67 @@
 import React from 'react';
+import TMDbMovieEntry from './TMDbMovieEntry.jsx';
+
 
 class AddMovie extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            TMDbMovies: []
+        }
+
         this.addMovieForm = this.addMovieForm.bind(this);
+        // this.renderTMDbResults = this.renderTMDbResults.bind(this);
     }
 
     addMovieForm(e) {
         e.preventDefault();
-        this.props.addMovieHandler(this.refs.addMovie.value);
+        var TMDbQueryObj = {
+            api_key: this.props.API_KEY,
+            query: this.refs.addMovie.value,
+        }
+
+        this.props.searchTMDb(TMDbQueryObj, (res) => {
+            this.setState({
+                TMDbMovies: res
+            }, () => this.renderTMDbResults(this.state.TMDbMovies))
+        });
+
         e.target.reset();
+    }
+
+    renderTMDbResults(TMDbmovies) {
+        console.log(TMDbmovies)
+        return (
+            TMDbmovies.map( (movie) => {
+                console.log(movie)
+                return (
+                    <TMDbMovieEntry 
+                        key={movie.id}
+                        addMovieHandler={this.props.addMovieHandler}
+                        movie={movie}
+                    />
+                )
+            })
+        )
     }
 
     render() {
         return (
         <div className="add-movie">
-            <form onSubmit={this.addMovieForm}>
-                <input 
-                    className="add-movie-input" 
-                    type="text" ref="addMovie" 
-                    placeholder="Add a movie here!"
-                />
-                <button className="add-movie-button">Add Movie</button>
-            </form>
+            <div id="add-movie-search">
+                <form onSubmit={this.addMovieForm}>
+                    <input 
+                        className="add-movie-input" 
+                        type="text" ref="addMovie" 
+                        placeholder="Add a movie here!"
+                    />
+                    <button className="add-movie-button">Add Movie</button>
+                </form>
+            </div>
+            <div id="render-add-movies">
+                {this.renderTMDbResults(this.state.TMDbMovies)}
+            </div>
         </div>
         )
     }

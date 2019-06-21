@@ -1,19 +1,32 @@
 // https://developers.themoviedb.org/3/search/search-movies
 
 var searchTMDB = (queryObject, successCB) => {
-    return fetch('https://api.themoviedb.org/3/search/movie?', queryObject)
-        .then(function(response) { // response here is http data
-            return response.json();
-        })
-        .then(function(jsonRes) {
-            console.log(JSON.stringify(jsonRes));
-            return JSON.stringify(jsonRes);
-        })
-        .then((res) => {
-            console.log(res);
-            successCB(res);
-        })
-        .catch(error => console.error('Error:', error))
+    // var url = `https://api.themoviedb.org/3/search/movie?api_key=e1bba95f329783c1383f684665e19f02&language=en-US&query=superman&page=1&include_adult=false`
+    var plainURL = `https://api.themoviedb.org/3/search/movie`;
+    console.log('obj in query: ', queryObject)
+    $.get(
+        plainURL, 
+        {
+            api_key: queryObject.api_key,
+            query: queryObject.query,
+            language: 'en-US',
+            page: 1,
+            include_adult: false
+        },
+        (data) => {
+            console.log(data.results);
+            successCB(data.results);
+        }
+    )
+    .fail(
+        () => {
+            console.log(this.url)
+        }
+    )
 }
 
 export default searchTMDB;
+
+
+
+// var url = `https://api.themoviedb.org/3/search/movie?api_key=${queryObject.api_key}&language=en-US&query=${queryObject.query}page=1&include_adult=false`

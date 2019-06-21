@@ -109,7 +109,11 @@ class App extends React.Component {
         return (
             <div id="movie-list-wrapper">
                 <div id="add-movies-list">
-                    <AddMovie addMovieHandler={this.addMovieHandler}/>
+                    <AddMovie 
+                        addMovieHandler={this.addMovieHandler}
+                        API_KEY={this.props.TMDB_API_KEY}
+                        searchTMDb={this.props.searchTMDb}
+                    />
                 </div>
                 <div id="render-movie-list">
                     <div className="search-wrapper">
