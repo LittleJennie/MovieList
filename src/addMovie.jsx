@@ -26,8 +26,6 @@ class AddMovie extends React.Component {
                 TMDbMovies: res
             }, () => this.renderTMDbResults(this.state.TMDbMovies))
         });
-
-        e.target.reset();
     }
 
     renderTMDbResults(TMDbmovies) {
@@ -49,7 +47,7 @@ class AddMovie extends React.Component {
         return (
         <div className="add-movie">
             <div id="add-movie-search">
-                <form onSubmit={this.addMovieForm}>
+                <form onChange={this.addMovieForm}>
                     <input 
                         className="add-movie-input" 
                         type="text" ref="addMovie" 

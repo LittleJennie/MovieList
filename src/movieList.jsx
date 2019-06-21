@@ -11,7 +11,7 @@ class MovieList extends React.Component {
         if (this.props.hasMovie === false) {
             return this.props.searchHelp;
         } else {
-            var toggleWatchStatus = this.props.toggleWatchStatus
+            var toggleWatchStatus = this.props.toggleWatchStatus;
             var movieEntries = this.props.renderMovies.map((movie) => (
                 <MovieListEntry 
                     key={movie.title} 

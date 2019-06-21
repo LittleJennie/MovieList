@@ -3,7 +3,6 @@
 var searchTMDB = (queryObject, successCB) => {
     // var url = `https://api.themoviedb.org/3/search/movie?api_key=e1bba95f329783c1383f684665e19f02&language=en-US&query=superman&page=1&include_adult=false`
     var plainURL = `https://api.themoviedb.org/3/search/movie`;
-    console.log('obj in query: ', queryObject)
     $.get(
         plainURL, 
         {

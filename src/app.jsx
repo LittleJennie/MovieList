@@ -3,6 +3,7 @@ import movieListData from './data/movieListData.js';
 import MovieList from './movieList.jsx';
 import Search from './search.jsx';
 import AddMovie from './addMovie.jsx';
+import { type } from 'os';
 
 class App extends React.Component {
     constructor (props) {
@@ -99,17 +100,18 @@ class App extends React.Component {
         }, this.renderMovieList);
     }
 
-    toggleWatchStatus(movie) {
-        for (var i = 0; i < movieListData.length; i ++) {
-            if (movieListData[i].title === movie) {
-                movieListData[i].toWatch = !movieListData[i].toWatch;
+    toggleWatchStatus(mvid) {
+        var mvData = Object.keys(movieListData);
+        for (var i = 0; i < mvData.length; i ++) {
+            if (mvData[i] === mvid.toString()) {
+                movieListData[mvData[i]].toWatch = !movieListData[mvData[i]].toWatch;
                 break;
             }
         };
 
         this.setState({
             allMovies: movieListData
-        }, this.renderMovieList);
+        }, () => this.renderMovieList());
     }
 
     render() {

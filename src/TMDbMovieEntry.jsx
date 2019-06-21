@@ -1,4 +1,5 @@
 import React from 'react';
+import TMDbMovieEntryDetail from './TMDbMovieEntryDetail.jsx';
 
 class TMDbMovieEntry extends React.Component {
     constructor(props) {
@@ -24,15 +25,7 @@ class TMDbMovieEntry extends React.Component {
     renderTitleDetail() {
         if (this.state.renderDetail) {
             return (
-                <div className="TMDbMovieEntry-detail">
-                    <div className="TMDbMovieEntry-text-wrap">
-                        <h3 className="TMDbMovieEntry-year">Year: <span className="TMDbMovieEntry-text">{this.props.movie.release_date}</span></h3>
-                        <h3 className="TMDbMovieEntry-vote_average">Rating: <span className="TMDbMovieEntry-text">{this.props.movie.vote_average}</span></h3>
-                        <h3 className="TMDbMovieEntry-overview">Movie Summary: </h3>
-                        <span className="TMDbMovieEntry-text">{this.props.movie.overview}</span>
-                    </div>
-                    <img className="TMDbMovieEntry-img" src={`https://image.tmdb.org/t/p/original${this.props.movie.poster_path}`} />
-                </div>
+                <TMDbMovieEntryDetail movie={this.props.movie}/>
             )
         } else {
             return (<div></div>);

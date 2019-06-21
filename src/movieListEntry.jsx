@@ -1,13 +1,16 @@
 import React from 'react';
+import TMDbMovieEntryDetail from './TMDbMovieEntryDetail.jsx';
 
 class movieListEntry extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            watchStatus: this.props.movie.toWatch
+            watchStatus: this.props.movie.toWatch,
+            renderDetail: false
         }
 
-        this.toggleButton = this.toggleButton.bind(this);
+        this.renderTitleDetail = this.renderTitleDetail.bind(this);
+        this.showDetail = this.showDetail.bind(this);
     }
 
     watchStatus() {
@@ -18,21 +21,40 @@ class movieListEntry extends React.Component {
         return this.state.watchStatus === true ? 'to-watch-button' : 'watched-button';
     }
 
-    toggleButton(movie) {
-        this.props.toggleWatchStatus(movie);
+    showDetail() {
+        this.setState({
+            renderDetail: !this.state.renderDetail
+        }, () => this.renderTitleDetail());
+    }
+
+    renderTitleDetail() {
+        if (this.state.renderDetail) {
+            console.log(this.props.movie)
+            return (
+                <TMDbMovieEntryDetail movie={this.props.movie}/>
+            )
+        } else {
+            return (<div></div>);
+        }
     }
 
     render() {
         return (
             <div className='movieListEntry-wrapper'>
-                <div className='movieListEntry'>{this.props.movie.title}</div>
+                <div 
+                    className='movieListEntry'
+                    onClick={this.showDetail}
+                >
+                    {this.props.movie.title}
+                </div>
                 <button 
                     id="watch-status-toggle-button" 
                     className={this.buttonClass()}
-                    onClick={() => this.toggleButton(this.props.movie.title)}
+                    onClick={() => this.props.toggleWatchStatus(this.props.movie.id)}
                 >
                     {this.watchStatus()}
                 </button>
+                {this.renderTitleDetail()}
             </div>
         )
     }
