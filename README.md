@@ -52,3 +52,99 @@ Create a directory for your project before performing the following steps. And t
 11. Create a `start` and `build` script tag in `package.json` file. 
     `"build": "webpack -d --watch"`
     `"start": "webpack-dev-server"`
+
+
+
+### Notes on set up Server and Database
+
+## Server
+
+1. `npm install express`, require `'express'` in `server.js`. 
+
+2. Invoke express, set up port and listen to port: 
+    `app = express()`
+    `app.set('port', 3000)`
+    `app.listen(app.get('port'))`
+
+3. Set up routes by pointing `api/movies` to routes.js
+
+4. In routes.js, set up different routes and point to methods set up in `./controller/index.js`
+
+
+
+## Database
+
+1. Using mySQL and Sequelize. See [Sequelize](http://docs.sequelizejs.com/manual/getting-started.html) for reference.
+
+2. `npm install sequelize --save` and `npm install mysql --save`.
+
+3. Set up connection 
+
+`const Sequelize = require('sequelize');`
+
+// Option 1: Passing parameters separately
+```
+const sequelize = new Sequelize('database', 'username', 'password', {
+  host: 'localhost',
+  dialect: /* one of 'mysql' | 'mariadb' | 'postgres' | 'mssql' */
+});
+```
+
+// Option 2: Passing a connection URI
+`const sequelize = new Sequelize('postgres://user:pass@example.com:5432/dbname');`
+
+4. Model a table. 
+```
+const User = sequelize.define('user', {
+  // attributes
+  firstName: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  lastName: {
+    type: Sequelize.STRING
+    // allowNull defaults to true
+  }
+}, {
+  // options
+});
+```
+
+5. Set up schema of the database. Things to think about: what information an individual movie entry will be required? can one table handle all the data search already? 
+    - it's always a better practice to have a auto-increment id for your entries, and the IMDB movie id can be a separate column. 
+
+6. Synchronize a table with database and remember to export the table after `sync()`.
+    `tablename.sync();`
+    `exports.tablename = tablename`
+
+7. Querying: 
+```
+// Find all users
+User.findAll().then(users => {
+  console.log("All users:", JSON.stringify(users, null, 4));
+});
+
+// Create a new user
+User.create({ firstName: "Jane", lastName: "Doe" }).then(jane => {
+  console.log("Jane's auto-generated ID:", jane.id);
+});
+
+// Delete everyone named "Jane"
+User.destroy({
+  where: {
+    firstName: "Jane"
+  }
+}).then(() => {
+  console.log("Done");
+});
+
+// Change everyone without a last name to "Doe"
+User.update({ lastName: "Doe" }, {
+  where: {
+    lastName: null
+  }
+}).then(() => {
+  console.log("Done");
+});
+```
+

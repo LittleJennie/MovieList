@@ -1,4 +1,4 @@
-const models = require('../models/index.js');
+const db = require('../db/');
 
 module.exports = {
 
@@ -8,7 +8,7 @@ module.exports = {
         }, 
 
         post: (req, res) => {
-            
+
         }
     }, 
 
