@@ -6,11 +6,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack -d --watch",
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server",
+    "server": "nodemon -w ./server/app.js"
   },
   "author": "Jennie Zeng",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.17.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
   },
