@@ -3,7 +3,6 @@ import movieListData from './data/movieListData.js';
 import MovieList from './movieList.jsx';
 import Search from './search.jsx';
 import AddMovie from './addMovie.jsx';
-import { type } from 'os';
 
 class App extends React.Component {
     constructor (props) {
