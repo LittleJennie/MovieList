@@ -14,7 +14,7 @@ class MovieList extends React.Component {
             var toggleWatchStatus = this.props.toggleWatchStatus;
             var movieEntries = this.props.renderMovies.map((movie) => (
                 <MovieListEntry 
-                    key={movie.title} 
+                    key={movie.id} 
                     movie={movie} 
                     toggleWatchStatus={toggleWatchStatus}
                 />

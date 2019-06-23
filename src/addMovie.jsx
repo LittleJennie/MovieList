@@ -31,12 +31,19 @@ class AddMovie extends React.Component {
     renderTMDbResults(TMDbmovies) {
         return (
             TMDbmovies.map( (movie) => {
+                var inlist = false;
+                for (var prop in this.props.allMovies) {
+                    if (prop === JSON.stringify(movie.id)){
+                        inlist = true;
+                        break;
+                    }
+                }
                 return (
                     <TMDbMovieEntry 
                         key={movie.id}
                         addMovieHandler={this.props.addMovieHandler}
                         movie={movie}
-                        inList={false}
+                        inList={inlist}
                     />
                 )
             })

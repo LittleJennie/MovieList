@@ -32,14 +32,15 @@ class App extends React.Component {
         var foundMovie = true;
         var searchHelpMsg = this.state.searchHelp;
         var curView = this.state.viewOnToWatch;
+        var allMovies = this.state.allMovies;
 
-        this.state.allMovies.forEach(function(movie) {
-            if (movie.title.search(query) !== -1 && movie.toWatch === curView) {
-                hasQuery.push(movie);
-            } else if (movie.title.search(query) !== -1) {
+        for (var id in allMovies) {
+            if (allMovies[id].title.search(query) !== -1 && allMovies[id].toWatch === curView) {
+                hasQuery.push(allMovies[id]);
+            } else if (allMovies[id].title.search(query) !== -1) {
                 searchHelpMsg = 'Looks like this movie is on another list!';
             }
-        });
+        }
 
         if (hasQuery.length === 0) {
             foundMovie = false;
