@@ -5,9 +5,9 @@ const db = new Sequelize('movielist', 'root', 'password', {
     dialect: 'mysql'
   });
 
-const Movies = db.define('movies', {
+const Movies = db.define('Movies', {
     imdbId: {
-        type: Sequelize.INT,
+        type: Sequelize.INTEGER,
     }, 
     title: {
         type: Sequelize.STRING,
@@ -16,7 +16,7 @@ const Movies = db.define('movies', {
         type: Sequelize.STRING
     }, 
     vote: {
-        type: Sequelize.INT,
+        type: Sequelize.INTEGER,
     }, 
     overviews: {
         type: Sequelize.TEXT,

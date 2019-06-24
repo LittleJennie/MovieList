@@ -15,19 +15,24 @@ module.exports = {
 
         post: (req, res) => {
             // assuming req.body is formated well
-            db.Movies.findOrCreate({where: {imdbId: req.body.imdbId}, default: {
+            console.log(req.body);
+            db.Movies.findOrCreate({
+                where: {imdbId: req.body.imdbId}, 
+                defaults: {
                 title: req.body.title,
                 releaseDate: req.body.releaseDate,
                 vote: req.body.vote,
                 overviews: req.body.overviews,
                 img: req.body.img,
                 towatch: req.body.towatch
-            }})
+                }
+            })
                 .spread((movie, created) => {
                     res.sendStatus(created ? 201 : 200);
                 });
         }, 
 
+        // maybe this put should be under an individual id route
         put: (req, res) => {
 
             // find the movie first, when sucess, update the record
