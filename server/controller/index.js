@@ -1,4 +1,5 @@
 const db = require('../db/index.js');
+const Sequelize = require('sequelize');
 
 module.exports = {
     //localhost:3000/api/movies/all
@@ -34,37 +35,16 @@ module.exports = {
 
         // maybe this put should be under an individual id route
         put: (req, res) => {
-
-            // find the movie first, when sucess, update the record
-            db.Movies.findAll({where: {imdbId: req.body.imdbId}})
-                .then((movie) => {
-                    if (movie.towatch) {
-                        movie.update(
-                            {towatch: false}, 
-                            {returning: true}
-                        )
-                        .spread((affectedRow, updatedMovie) => {
-                            // The promise returns an array with one or two elements. 
-                            // The first element is always the number of affected rows, 
-                            // while the second element is the actual affected rows 
-                            // (only supported in postgres with options.returning true.)
-
-                            res.status(201).json(updatedMovie);
-
-                        })
-                    } else {
-                        movie.update(
-                            {towatch: true},
-                            {returning: true}
-                        )
-                        .spread((affectedRow, updatedMovie) => {
-                            res.status(201).json(updatedMovie);
-                        })
-                    }
-                })
-                .catch((err) => {
-                    res.status(400).send('movie not found');
-                });
+            db.Movies.update(
+                {towatch: Sequelize.literal('NOT towatch')},
+                {returning: true, where: {imdbId: req.body.imdbId}}
+            )
+            .then(() => {
+                res.status(201).json('movie towatch status updated');
+            })
+            .catch((err) => {
+                res.status(400).send('movie not found');
+            });
         }
     }, 
 

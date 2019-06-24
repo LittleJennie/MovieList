@@ -70,6 +70,8 @@ Create a directory for your project before performing the following steps. And t
 
 4. In routes.js, set up different routes and point to methods set up in `./controller/index.js`
 
+5. According to express.js official documentation, `req.body` by default is undefined. To use this property, we will need to parse the request **before** we routes to request handling methods. One way to parse is to `use` `express.json()`. 
+
 
 
 ## Database
@@ -148,3 +150,10 @@ User.update({ lastName: "Doe" }, {
 });
 ```
 
+8. To update a record, the option argument **has to** go before the returning and where statement:
+```
+    db.Movies.update(
+        {towatch: Sequelize.literal('NOT towatch')},
+        {returning: true, where: {imdbId: req.body.imdbId}}
+    )
+```
