@@ -3,15 +3,16 @@ import movieListData from './data/movieListData.js';
 import MovieList from './movieList.jsx';
 import Search from './search.jsx';
 import AddMovie from './addMovie.jsx';
+import Query from './data/querydata.js';
 
 class App extends React.Component {
     constructor (props) {
         super(props);
 
         this.state = {
-            allMovies: movieListData, // movie format: {title: 'Mean Girls', toWatch: true}
+            allMovies: {}, // movie format: {title: 'Mean Girls', toWatch: true}
             hasMovie: true,
-            renderMovies: Object.values(movieListData),
+            renderMovies: [],
             viewOnToWatch: true, 
             searchHelp: 'Sorry, this movie is not on any of your movie list yet :('
         }
@@ -22,6 +23,19 @@ class App extends React.Component {
         this.toggleToWatchMovieList = this.toggleToWatchMovieList.bind(this);
         this.toggleWatchedMovieList = this.toggleWatchedMovieList.bind(this);
         this.toggleWatchStatus = this.toggleWatchStatus.bind(this);
+    }
+
+    componentDidMount() {
+        Query.getAllMovies((movies) => {
+            var renderArr = [];
+            for (var prop in movies) {
+                renderArr.push(movies[prop]);
+            }
+            this.setState({
+                allMovies: movies,
+                renderMovies: renderArr
+            })
+        })
     }
 
     onChangeHandler(query) {

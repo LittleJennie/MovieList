@@ -12,6 +12,7 @@ class MovieList extends React.Component {
             return this.props.searchHelp;
         } else {
             var toggleWatchStatus = this.props.toggleWatchStatus;
+            console.log(this.props.renderMovies)
             var movieEntries = this.props.renderMovies.map((movie) => (
                 <MovieListEntry 
                     key={movie.id} 
