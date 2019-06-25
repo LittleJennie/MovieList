@@ -72,6 +72,15 @@ Create a directory for your project before performing the following steps. And t
 
 5. According to express.js official documentation, `req.body` by default is undefined. To use this property, we will need to parse the request **before** we routes to request handling methods. One way to parse is to `use` `express.json()`. 
 
+6. To render static front end file in back end server: 
+  1. `app.use('/api/movies', express.static(path.join(__dirname, '..', 'dist')));`
+    - URL should point to the initial render page
+    - static path should point to the `dist` folder
+  2. `dist` folder will have: 
+    1. `main.js` that webpack bundles for us
+    2. `index.html` --> this will be render on users' page, and since `index.html` is referencing to `main.js`, thus this will be rendered with react components
+    3. `style.css` should be in this `dist` folder as well
+
 
 
 ## Database

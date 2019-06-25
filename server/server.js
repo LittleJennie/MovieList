@@ -1,5 +1,6 @@
 const express = require ('express');
 const routes = require('./routes.js');
+const path = require('path');
 
 // Middleware
 const morgan = require('morgan');
@@ -15,8 +16,8 @@ app.set('port', 3000);
 // app.use(parser.json());
 
 app.use(express.json());
+app.use('/api/movies', express.static(path.join(__dirname, '..', 'dist')));
 app.use('/api/movies', routes);
-app.use(express.static(__dirname + '/../dist'))
 
 
 
