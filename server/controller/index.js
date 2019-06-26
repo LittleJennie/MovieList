@@ -3,79 +3,46 @@ const Sequelize = require('sequelize');
 
 module.exports = {
     //localhost:3000/api/movies/all
-    all: {
-        get: (req, res) => {
-            db.Movies.findAll()
-                .then((movies) => {
-                    res.status(200).json(movies);
-                })
-                .catch((err) => {
-                    res.status(400).send('something went wront');
-                });
-        }, 
+    get: (req, res) => {
+        db.Movies.findAll()
+        .then((movies) => res.status(200).json(movies))
+        .catch((err) => res.status(400).send('something went wront'));
+    }, 
 
-        post: (req, res) => {
-            // assuming req.body is formated well
-            db.Movies.findOrCreate({
-                where: {imdbId: req.body.imdbId}, 
-                defaults: {
+    post: (req, res) => {
+        // assuming req.body is formated well
+        db.Movies.findOrCreate({
+            where: {imdbId: req.body.imdbId}, 
+            defaults: {
                 title: req.body.title,
                 releaseDate: req.body.releaseDate,
                 vote: req.body.vote,
                 overviews: req.body.overviews,
                 img: req.body.img,
                 towatch: req.body.towatch
-                }
-            })
-                .spread((movie, created) => {
-                    res.sendStatus(created ? 201 : 200);
-                });
-        }, 
-
-        // maybe this put should be under an individual id route
-        // Route path: /user/:userId(\d+)
-        // Request URL: http://localhost:3000/user/42
-        // req.params: {"userId": "42"}
-        put: (req, res) => {
-            console.log(req.params.id)
-            var id = Number(req.params.id);
-            db.Movies.update(
-                {towatch: Sequelize.literal('NOT towatch')},
-                {returning: true, where: {id: id}}
-            )
-            .then(() => {
-                res.status(201).json('movie towatch status updated');
-            })
-            .catch((err) => {
-                res.status(400).send('movie not found');
-            });
-        }
+            }
+        })
+        .spread((movie, created) => res.sendStatus(created ? 201 : 200));
     }, 
 
-    // ** maybe we can do a /api/movies/:status here instead
-    //localhost:3000/api/movies/towatch
-    towatch: {
-        get: (req, res) => {
-            db.Movies.findAll({where: {towatch: true}})
-            .then((movies) => {
-                res.status(200).json(movies);
-            })
-            .catch((err) => {
-                res.status(400).send('something went wront');
-            }); 
-        }
-    }, 
+    put: (req, res) => {
+        var id = Number(req.params.id);
+        db.Movies.update(
+            {towatch: Sequelize.literal('NOT towatch')},
+            {returning: true, where: {id: id}}
+        )
+        .then(() => res.status(201).json('movie towatch status updated'))
+        .catch((err) => res.status(400).send('movie not found'));
+    },
 
-    //localhost:3000/api/movies/watched
-    watched: {
-        get: (req, res) => {
-            db.Movies.findAll({where: {towatch: false}})
-            .then((movies) => {
-                res.status(200).json(movies);
-            })
-            .catch((err) => {
-                res.status(400).send('something went wront');
-            }); 
-        }
+// ** maybe we can do a /api/movies/:status here instead
+//localhost:3000/api/movies/towatch
+    getCurViewMovies: (req, res) => {
+        var curview = req.params.curview;
+        curview = curview === 'towatch' ? true : false;
+
+        db.Movies.findAll({where: {towatch: curview}})
+        .then((movies) => res.status(200).json(movies))
+        .catch((err) => res.status(400).send('something went wront'));
     }
 }

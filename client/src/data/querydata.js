@@ -22,14 +22,8 @@ var query = {
             .catch(err => console.log(err))
     }, 
 
-    getToWatchMovies: (cb) => {
-        axios.get('/api/movies/towatch')
-        .then(({data}) => cb(data))
-        .catch(err => console.log(err))
-    }, 
-
-    getWatchedMovies: (cb) => {
-        axios.get('/api/movies/watched')
+    getCurViewMovies: (curview, cb) => {
+        axios.get('/api/movies/all/' + curview)
         .then(({data}) => cb(data))
         .catch(err => console.log(err))
     }

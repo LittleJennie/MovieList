@@ -36,6 +36,7 @@ class App extends React.Component {
     }
 
     // maybe can do a db search on string contain here
+    // ** TO FIX**
     onChangeHandler(query) {
         var hasQuery = [];
         var query = new RegExp(query, 'i');
@@ -80,19 +81,13 @@ class App extends React.Component {
     }
 
     renderMovieList() {
-        if (this.state.viewOnToWatch) {
-            Query.getToWatchMovies((movies) => {
-                this.setState({
-                    renderMovies: movies
-                });
-            })
-        } else {
-            Query.getWatchedMovies((movies) => {
-                this.setState({
-                    renderMovies: movies
-                });
-            })
-        }
+        var curView;
+        this.state.viewOnToWatch ? curView = 'towatch' : curView = 'watch';
+        Query.getCurViewMovies(curView, (movies) => {
+            this.setState({
+                renderMovies: movies
+            });
+        })
     }
 
     toggleToWatchMovieList(e) {
