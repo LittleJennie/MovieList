@@ -47,6 +47,7 @@ module.exports = {
         }
     }, 
 
+    // ** maybe we can do a /api/movies/:status here instead
     //localhost:3000/api/movies/towatch
     towatch: {
         get: (req, res) => {

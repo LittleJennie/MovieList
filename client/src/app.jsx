@@ -27,18 +27,14 @@ class App extends React.Component {
 
     componentDidMount() {
         Query.getAllMovies((movies) => {
-            var renderArr = [];
-            for (var prop in movies) {
-                renderArr.push(movies[prop]);
-            }
-            console.log(renderArr)
             this.setState({
                 allMovies: movies,
-                renderMovies: renderArr
+                renderMovies: movies
             })
         })
     }
 
+    // maybe can do a db search on string contain here
     onChangeHandler(query) {
         var hasQuery = [];
         var query = new RegExp(query, 'i');
@@ -76,29 +72,26 @@ class App extends React.Component {
             towatch: true
         };
         Query.postAMovie(newMovieObj, (movies) => {
-            var renderArr = [];
-            for (var prop in movies) {
-                renderArr.push(movies[prop]);
-            }
             this.setState({
-                allMovies: renderArr,
-            }, this.renderMovieList());
+                allMovies: movies,
+            }, this.renderMovieList);
         })
     }
 
     renderMovieList() {
-        var toRender = [];
-        var curView = this.state.viewOnToWatch;
-
-        for (var prop in this.state.allMovies) {
-            if (this.state.allMovies[prop].towatch === curView) {
-                toRender.push(this.state.allMovies[prop]);
-            }
+        if (this.state.viewOnToWatch) {
+            Query.getToWatchMovies((movies) => {
+                this.setState({
+                    renderMovies: movies
+                });
+            })
+        } else {
+            Query.getWatchedMovies((movies) => {
+                this.setState({
+                    renderMovies: movies
+                });
+            })
         }
-        console.log(toRender)
-        this.setState({
-            renderMovies: toRender
-        });
     }
 
     toggleToWatchMovieList(e) {
@@ -124,7 +117,7 @@ class App extends React.Component {
 
         this.setState({
             allMovies: movieListData
-        }, () => this.renderMovieList());
+        }, this.renderMovieList);
     }
 
     render() {

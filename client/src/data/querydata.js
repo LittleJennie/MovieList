@@ -17,16 +17,21 @@ var query = {
     }, 
 
     updateAMovie: (movie, cb) => {
-        $.ajax({
-            url: '/api/movies/all',
-            type: 'PUT',
-            onComplete: () => {
-                this.getAllMovies(cb);
-            }, 
-            error: (err) => {
-                console.log(err);
-            }
-         });
+        axios.put('/api/movies/all')
+            .then(() => query.getAllMovies(cb))
+            .catch(err => console.log(err))
+    }, 
+
+    getToWatchMovies: (cb) => {
+        axios.get('/api/movies/towatch')
+        .then(({data}) => cb(data))
+        .catch(err => console.log(err))
+    }, 
+
+    getWatchedMovies: (cb) => {
+        axios.get('/api/movies/watched')
+        .then(({data}) => cb(data))
+        .catch(err => console.log(err))
     }
 }
 
