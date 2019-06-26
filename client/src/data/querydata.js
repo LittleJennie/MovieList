@@ -16,8 +16,8 @@ var query = {
             .catch(err => console.log(err))
     }, 
 
-    updateAMovie: (movie, cb) => {
-        axios.put('/api/movies/all')
+    updateAMovie: (id, cb) => {
+        axios.put('/api/movies/all/' + id)
             .then(() => query.getAllMovies(cb))
             .catch(err => console.log(err))
     }, 

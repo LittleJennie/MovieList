@@ -33,10 +33,15 @@ module.exports = {
         }, 
 
         // maybe this put should be under an individual id route
+        // Route path: /user/:userId(\d+)
+        // Request URL: http://localhost:3000/user/42
+        // req.params: {"userId": "42"}
         put: (req, res) => {
+            console.log(req.params.id)
+            var id = Number(req.params.id);
             db.Movies.update(
                 {towatch: Sequelize.literal('NOT towatch')},
-                {returning: true, where: {imdbId: req.body.imdbId}}
+                {returning: true, where: {id: id}}
             )
             .then(() => {
                 res.status(201).json('movie towatch status updated');

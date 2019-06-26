@@ -4,6 +4,7 @@ import MovieList from './movieList.jsx';
 import Search from './search.jsx';
 import AddMovie from './addMovie.jsx';
 import Query from './data/querydata.js';
+import { type } from 'os';
 
 class App extends React.Component {
     constructor (props) {
@@ -106,18 +107,13 @@ class App extends React.Component {
         }, this.renderMovieList);
     }
 
-    toggleWatchStatus(mvid) {
-        var mvData = Object.keys(movieListData);
-        for (var i = 0; i < mvData.length; i ++) {
-            if (mvData[i] === mvid.toString()) {
-                movieListData[mvData[i]].towatch = !movieListData[mvData[i]].towatch;
-                break;
-            }
-        };
-
-        this.setState({
-            allMovies: movieListData
-        }, this.renderMovieList);
+    // ** need to fix this
+    toggleWatchStatus(id) {
+        Query.updateAMovie(id, (movies) => {
+            this.setState({
+                allMovies: movies
+            }, this.renderMovieList);
+        })
     }
 
     render() {

@@ -14,7 +14,7 @@ class movieListEntry extends React.Component {
     }
 
     watchStatus() {
-        return this.state.watchStatus === true ? 'To Watch' : 'Watched';
+        return this.state.watchStatus === true ? 'I have watched the movie!' : 'I have not wathced yet!';
     }
 
     buttonClass() {
@@ -29,7 +29,6 @@ class movieListEntry extends React.Component {
 
     renderTitleDetail() {
         if (this.state.renderDetail) {
-            console.log(this.props.movie)
             return (
                 <TMDbMovieEntryDetail movie={this.props.movie}/>
             )
@@ -50,7 +49,7 @@ class movieListEntry extends React.Component {
                 <button 
                     id="watch-status-toggle-button" 
                     className={this.buttonClass()}
-                    onClick={() => this.props.toggleWatchStatus(this.props.movie.imdbId)}
+                    onClick={() => this.props.toggleWatchStatus(this.props.movie.id)}
                 >
                     {this.watchStatus()}
                 </button>
