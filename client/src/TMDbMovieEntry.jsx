@@ -33,7 +33,6 @@ class TMDbMovieEntry extends React.Component {
     }
 
     addMovieToggleButton(movie) {
-        console.log(this.state.inListStatus)
         this.props.addMovieHandler(movie);
         this.setState({
             inListStatus: !this.state.inListStatus

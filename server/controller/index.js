@@ -7,7 +7,6 @@ module.exports = {
         get: (req, res) => {
             db.Movies.findAll()
                 .then((movies) => {
-                    console.log(JSON.stringify(movies))
                     res.status(200).json(movies);
                 })
                 .catch((err) => {
@@ -17,7 +16,6 @@ module.exports = {
 
         post: (req, res) => {
             // assuming req.body is formated well
-            console.log(req.body);
             db.Movies.findOrCreate({
                 where: {imdbId: req.body.imdbId}, 
                 defaults: {

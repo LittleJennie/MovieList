@@ -5,7 +5,7 @@ class movieListEntry extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            watchStatus: this.props.movie.toWatch,
+            watchStatus: this.props.movie.towatch,
             renderDetail: false
         }
 
@@ -50,7 +50,7 @@ class movieListEntry extends React.Component {
                 <button 
                     id="watch-status-toggle-button" 
                     className={this.buttonClass()}
-                    onClick={() => this.props.toggleWatchStatus(this.props.movie.id)}
+                    onClick={() => this.props.toggleWatchStatus(this.props.movie.imdbId)}
                 >
                     {this.watchStatus()}
                 </button>

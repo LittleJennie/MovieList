@@ -1,25 +1,19 @@
+var axios = require('axios');
+
 var query = {
 
+    // for initial load and each update rendering
     getAllMovies: (cb) => {
-        $.get('/api/movies/all')
-            .done((result) => {
-                cb(result);
-            })
-            .fail((err) => {
-                console.log(err);
-            })
+        axios.get('/api/movies/all')
+            .then(({data}) => cb(data))
+            .catch(err => console.log(err))
     }, 
 
+    // for adding a new movie to data base
     postAMovie: (movie, cb) => {
-        $.post('/api/movies/all', movie)
-            .done((result) => {
-                console.log(result);
-                // maybe the cb is to call getAllmovie again? 
-                cb(result);
-            })
-            .fail((err) => {
-                console.log(err);
-            })
+        axios.post('/api/movies/all', movie)
+            .then(() => query.getAllMovies(cb))
+            .catch(err => console.log(err))
     }, 
 
     updateAMovie: (movie, cb) => {

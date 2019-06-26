@@ -31,6 +31,7 @@ class App extends React.Component {
             for (var prop in movies) {
                 renderArr.push(movies[prop]);
             }
+            console.log(renderArr)
             this.setState({
                 allMovies: movies,
                 renderMovies: renderArr
@@ -39,7 +40,6 @@ class App extends React.Component {
     }
 
     onChangeHandler(query) {
-        console.log('onChange fire, this is query: ', query)
         var hasQuery = [];
         var query = new RegExp(query, 'i');
         var foundMovie = true;
@@ -47,10 +47,10 @@ class App extends React.Component {
         var curView = this.state.viewOnToWatch;
         var allMovies = this.state.allMovies;
 
-        for (var id in allMovies) {
-            if (allMovies[id].title.search(query) !== -1 && allMovies[id].toWatch === curView) {
-                hasQuery.push(allMovies[id]);
-            } else if (allMovies[id].title.search(query) !== -1) {
+        for (var imdbId in allMovies) {
+            if (allMovies[imdbId].title.search(query) !== -1 && allMovies[imdbId].toWatch === curView) {
+                hasQuery.push(allMovies[imdbId]);
+            } else if (allMovies[imdbId].title.search(query) !== -1) {
                 searchHelpMsg = 'Looks like this movie is on another list!';
             }
         }
@@ -58,8 +58,6 @@ class App extends React.Component {
         if (hasQuery.length === 0) {
             foundMovie = false;
         }
-
-        console.log('onChange fire, this is hasQuery Arr: ', hasQuery)
         this.setState({
             hasMovie: foundMovie,
             renderMovies: hasQuery,
@@ -68,35 +66,36 @@ class App extends React.Component {
     }
 
     addMovieHandler(newMovie) {
-        // need to add movie to a storage file
         var newMovieObj = {
-            id: newMovie.id,
+            imdbId: newMovie.id,
             title: newMovie.title,
             releaseDate: newMovie.release_date,
             vote: newMovie.vote_average,
-            overview: newMovie.overview,
+            overviews: newMovie.overview,
             img: newMovie.poster_path,
-            toWatch: true
+            towatch: true
         };
-        movieListData[newMovie.id] = newMovieObj;
-
-        this.setState({
-            allMovies: movieListData,
-        }, this.renderMovieList());
+        Query.postAMovie(newMovieObj, (movies) => {
+            var renderArr = [];
+            for (var prop in movies) {
+                renderArr.push(movies[prop]);
+            }
+            this.setState({
+                allMovies: renderArr,
+            }, this.renderMovieList());
+        })
     }
 
     renderMovieList() {
         var toRender = [];
         var curView = this.state.viewOnToWatch;
-        console.log('allMovies when calling renderMovieList: ', this.state.allMovies);
-        console.log('curView when calling renderMovieList: ', curView);
 
         for (var prop in this.state.allMovies) {
-            if (this.state.allMovies[prop].toWatch === curView) {
+            if (this.state.allMovies[prop].towatch === curView) {
                 toRender.push(this.state.allMovies[prop]);
             }
         }
-
+        console.log(toRender)
         this.setState({
             renderMovies: toRender
         });
@@ -118,7 +117,7 @@ class App extends React.Component {
         var mvData = Object.keys(movieListData);
         for (var i = 0; i < mvData.length; i ++) {
             if (mvData[i] === mvid.toString()) {
-                movieListData[mvData[i]].toWatch = !movieListData[mvData[i]].toWatch;
+                movieListData[mvData[i]].towatch = !movieListData[mvData[i]].towatch;
                 break;
             }
         };
